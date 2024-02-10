@@ -14,6 +14,15 @@ export default function Textarea(props) {
     })
   }
 
+  function unescapeable() {
+    if (typeof props.unescapeable !== "function") return
+    props.unescapeable({
+      value: document.getElementById(textareaId).value,
+      id: textareaId,
+      type: "textarea",
+    })
+  }
+
   function clearable() {
     document.getElementById(textareaId).value = ""
     if (typeof props.clearable !== "function") return
@@ -49,6 +58,12 @@ export default function Textarea(props) {
             <Button
               text="Escape"
               onClick={escapable}
+            />
+          )}
+          {props.unescapeable && (
+            <Button
+              text="Unescape"
+              onClick={unescapeable}
             />
           )}
           {props.copyable && (
